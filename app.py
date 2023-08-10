@@ -25,29 +25,31 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 chat_container = st.empty()
+chat_container_c = st.empty()
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# React to user input
-if (prompt := st.chat_input("Your message")) or len(audio):
-    # If it's coming from the audio recorder transcribe the message with whisper.cpp
-    if len(audio)>0:
-        prompt = inference(audio)
-
-    # Display user message in chat message container
-    st.chat_message("user").markdown(prompt)
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
-
-    response = f"Echo: {prompt}"
-    # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+with chat_container_c.container():
+    # Display chat messages from history on app rerun
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+    
+    # React to user input
+    if (prompt := st.chat_input("Your message")) or len(audio):
+        # If it's coming from the audio recorder transcribe the message with whisper.cpp
+        if len(audio)>0:
+            prompt = inference(audio)
+    
+        # Display user message in chat message container
+        st.chat_message("user").markdown(prompt)
+        # Add user message to chat history
+        st.session_state.messages.append({"role": "user", "content": prompt})
+    
+        response = f"Echo: {prompt}"
+        # Display assistant response in chat message container
+        with st.chat_message("assistant"):
+            st.markdown(response)
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "assistant", "content": response})
         
 with chat_container.container():
     st.button('Say hellozzzzzz')
