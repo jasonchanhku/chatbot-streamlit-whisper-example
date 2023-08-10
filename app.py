@@ -28,10 +28,11 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-audio = audiorecorder("Click to send voice message", "Recording... Click when you're done", key="recorder")
+
 # React to user input
-if (prompt := st.chat_input("Your message")) or len(audio):
+if (prompt := st.chat_input("Your message")):
     # If it's coming from the audio recorder transcribe the message with whisper.cpp
+    audio = audiorecorder("Click to send voice message", "Recording... Click when you're done", key="recorder")
     if len(audio)>0:
         prompt = inference(audio)
 
