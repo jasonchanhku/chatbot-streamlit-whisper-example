@@ -48,8 +48,9 @@ with st.container():
             st.markdown(response)
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "assistant", "content": response})
+        
 with st.container():
-    if st.button('Say hello'):
+    if st.button('Say hellozzzzzz'):
         st.write('Why hello there')
     else:
         st.write('Goodbye')
