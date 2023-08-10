@@ -16,9 +16,9 @@ def inference(audio):
     return text[0]
 
 # Streamlit
-with st.sidebar:
-    audio = audiorecorder("Click to send voice message", "Recording... Click when you're done", key="recorder")
-    st.title("Echo Bot with Whisper")
+# with st.sidebar:
+#     audio = audiorecorder("Click to send voice message", "Recording... Click when you're done", key="recorder")
+#     st.title("Echo Bot with Whisper")
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -28,7 +28,7 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-
+audio = audiorecorder("Click to send voice message", "Recording... Click when you're done", key="recorder")
 # React to user input
 if (prompt := st.chat_input("Your message")) or len(audio):
     # If it's coming from the audio recorder transcribe the message with whisper.cpp
